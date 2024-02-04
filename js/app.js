@@ -74,6 +74,7 @@ const calculateWordNumerology = (word) => {
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     const destinyNumber = reduceNumber(sum);
     allResults.push({ word, destinyNumber }); 
+}
 
 // Function to reduce number to a single digit
 const reduceNumber = (number) => {
