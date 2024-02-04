@@ -69,11 +69,7 @@ const separateWords = () => {
 
 // Function to calculate numerology for a single word
 const calculateWordNumerology = (word) => {
-    const letters = word.split('');
-    const numbers = letters.map(letter => lettersToNumbers[letter] || 0);
-    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-    const destinyNumber = reduceNumber(sum);
-    allResults.push({ word, destinyNumber }); 
+    allResults.push({ word, destinyNumber:reduceNumber(word.split('').map(letter => lettersToNumbers[letter] || 0).reduce((acc, curr) => acc + curr, 0)) }); 
 }
 
 // Function to reduce number to a single digit
