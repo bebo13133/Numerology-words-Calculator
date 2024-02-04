@@ -1,10 +1,14 @@
 // Global variables
 const buttonCalculate = document.getElementById("calculate");
 const buttonClean = document.getElementById("clean");
+const buttonFilter = document.getElementById("applyFilter"); // Бутон за прилагане на филтър
+const filterNumberInput = document.getElementById("filterNumber"); // Поле за въвеждане на филтъра
 const modal = document.getElementById("modal");
 const result = document.getElementById("result");
 const inputName = document.getElementById("name");
 const errorDiv = document.getElementById("error");
+
+let allResults = []; // Съхранява всички резултати
 
 // Convert letters to numbers
 const lettersToNumbers = {
@@ -33,31 +37,35 @@ buttonClean.onclick = (e) => {
     cleanAll();
 }
 
+// Function to apply filter
+buttonFilter.onclick = (e) => {
+    e.preventDefault();
+    displayResults(); // Показване на филтрирани резултати
+}
+
 const cleanAll = () => {
     result.innerText = "";
     inputName.value = "";
     errorDiv.innerText = "";
     modal.style.display = "none";
+    filterNumberInput.value = ""; // Изчистване на филтъра
+    allResults = []; // Изчистване на съхранените резултати
 }
 
 // Function to separate words and handle each word
 const separateWords = () => {
     const words = inputName.value.toLowerCase().split(' ');
-
     if (words.length === 0 || inputName.value === "") {
         errorDiv.innerText = "Please, write your name.";
         return;
     }
-
-    result.innerHTML = ""; // Clear previous results
+    allResults = []; // Изчистване на предишните резултати
     words.forEach(word => {
         if (word !== "") {
             calculateWordNumerology(word);
         }
     });
-
-    modal.style.display = "block";
-    
+    displayResults(); // Показване на всички резултати
 }
 
 // Function to calculate numerology for a single word
@@ -66,9 +74,7 @@ const calculateWordNumerology = (word) => {
     const numbers = letters.map(letter => lettersToNumbers[letter] || 0);
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     const destinyNumber = reduceNumber(sum);
-    if (destinyNumber === 8) { // Show results only for destiny number 8
-        displayResult(word, destinyNumber);
-    }
+    allResults.push({ word, destinyNumber }); // Добавяне на резултата в масива
 }
 
 // Function to reduce number to a single digit
@@ -79,10 +85,16 @@ const reduceNumber = (number) => {
     return number;
 }
 
-// Function to display result in modal
-const displayResult = (word, number) => {
-    const element = document.createElement("div");
-    element.classList.add('numerologyResult');
-    element.innerText = `${word}- ${number}`;
-    result.appendChild(element);
+// Function to display results based on filter
+const displayResults = () => {
+    const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
+    result.innerHTML = ""; // Изчистване на предишните резултати
+    allResults.forEach(({ word, destinyNumber }) => {
+        if (!filterVal || destinyNumber === filterVal) {
+            const element = document.createElement("div");
+            element.classList.add('numerologyResult');
+            element.innerText = `${word} - ${destinyNumber}`;
+            result.appendChild(element);
+        }
+    });
 }

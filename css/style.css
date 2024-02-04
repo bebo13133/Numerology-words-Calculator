@@ -266,3 +266,18 @@ input {
     border-bottom: 3px solid #4e33b7;
     margin: 1em;
 }
+#filterNumber {
+    height: 2em;
+    width: 150px;
+    font-size: 15px;
+}
+#applyFilter {
+    font-size: 12px;
+    border-radius: 2em;
+    padding: 0.5em;
+    overflow: hidden;
+}
+#applyFilter:hover{
+    background-color: chocolate;
+    color: white;
+}
