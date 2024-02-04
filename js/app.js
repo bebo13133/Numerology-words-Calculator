@@ -1,15 +1,14 @@
 // Global variables
 const buttonCalculate = document.getElementById("calculate");
 const buttonClean = document.getElementById("clean");
-const buttonFilter = document.getElementById("applyFilter"); // Бутон за прилагане на филтър
-const filterNumberInput = document.getElementById("filterNumber"); // Поле за въвеждане на филтъра
+const buttonFilter = document.getElementById("applyFilter"); 
+const filterNumberInput = document.getElementById("filterNumber");
 const modal = document.getElementById("modal");
 const result = document.getElementById("result");
 const inputName = document.getElementById("name");
 const errorDiv = document.getElementById("error");
 
-let allResults = []; // Съхранява всички резултати
-
+let allResults = []; 
 // Convert letters to numbers
 const lettersToNumbers = {
     a: 1, á: 1, ã: 1, â: 1, j: 1, s: 1,
@@ -48,7 +47,7 @@ const cleanAll = () => {
     inputName.value = "";
     errorDiv.innerText = "";
     modal.style.display = "none";
-    filterNumberInput.value = ""; // Изчистване на филтъра
+    filterNumberInput.value = ""; 
     allResults = []; // Изчистване на съхранените резултати
 }
 
@@ -59,13 +58,13 @@ const separateWords = () => {
         errorDiv.innerText = "Please, write your name.";
         return;
     }
-    allResults = []; // Изчистване на предишните резултати
+    allResults = []; 
     words.forEach(word => {
         if (word !== "") {
             calculateWordNumerology(word);
         }
     });
-    displayResults(); // Показване на всички резултати
+    displayResults(); 
 }
 
 // Function to calculate numerology for a single word
@@ -74,8 +73,7 @@ const calculateWordNumerology = (word) => {
     const numbers = letters.map(letter => lettersToNumbers[letter] || 0);
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     const destinyNumber = reduceNumber(sum);
-    allResults.push({ word, destinyNumber }); // Добавяне на резултата в масива
-}
+    allResults.push({ word, destinyNumber }); 
 
 // Function to reduce number to a single digit
 const reduceNumber = (number) => {
@@ -88,7 +86,7 @@ const reduceNumber = (number) => {
 // Function to display results based on filter
 const displayResults = () => {
     const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
-    result.innerHTML = ""; // Изчистване на предишните резултати
+    result.innerHTML = "";
     allResults.forEach(({ word, destinyNumber }) => {
         if (!filterVal || destinyNumber === filterVal) {
             const element = document.createElement("div");
