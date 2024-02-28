@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css"/>
-    <script type="text/javascript" src="js/app.js" defer></script>
-    <script type="text/javascript" src="js/data.js" defer></script>
     <title>Name Numerology Calculator</title>
 </head>
 <body>
@@ -14,40 +12,44 @@
     <div class="window">
         <h1>Name Numerology Calculator</h1>
         <h2>Find out your power number</h2>
-        <p>The practices and principles of numerology have been traced back to at least 500 BC. This is when the great Greek mathematician and philosopher Pythagoras began a theory on numbers when he discovered that there was a direct relationship between numbers and music notes. Write your complete name and click on the button to see your power number. 
-        </p>
+        <p>The practices and principles of numerology have been traced back to at least 500 BC...</p>
 
         <form method="get">     
-        <div id="error"></div>
-        <input id="name" class="window__name" type="text" placeholder="Your name" required/>
-        <button id="calculate" type="submit" class="window__button">Calculate</button>
+            <div id="error"></div>
+            <input id="name" class="window__name" type="text" placeholder="Your name" required/>
+            <button id="calculate" type="submit" class="window__button">Calculate</button>
         </form>
 
         <div class="window__modal__background" id="modal">
-        <div class="window__modal__area">
-            <div id="filter-container">
-                <input type="number" id="filterNumber" placeholder="Enter number">
-                <button id="applyFilter">Apply Filter</button>
+            <div class="window__modal__area">
+                <div id="filter-container">
+                    <div class="filterEn">
+                    <input type="number" id="filterNumber" 
+                    placeholder="Enter number"
+                    >
+                    <button id="applyFilter">Apply Filter</button>
+                </div>
+                    <div id="bgFilterContainer" style="display:none;">
+                        <input type="number" id="bgFilterNumber" 
+                        placeholder="Enter number"
+                        >
+                        <button id="applyBgFilter">Филтрирай BG думи</button>
+                    </div>
+                </div>
+                <h2>Your power numbers are</h2>
+                <div id="result"></div>
+                <button id="clean" type="reset" class="window__button__clean">Clean</button>
             </div>
-        <h2>Your power numbers are</h2>
-        <div class="numbers" id="result">
+           
         </div>
 
-        <!--------- RESPONSES -->
-        <div class="window__response" id="response">
-    
+       
 
-
-        </div>
-        <!---- end responses -->
-
-        <button id="clean" type="reset" class="window__button__clean">Clean</button>
-        </div>
-    
-        </div>
     </div>
     <footer>
         <div class="credits">&copy;All rights reserved.</div>
     </footer>
+    
+    <script src="js/app.js"></script>
 </body>
 </html>
