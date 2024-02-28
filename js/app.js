@@ -59,7 +59,7 @@ function transliterate(text) {
          'r' : 'р',
          's' : 'с',
          't' : 'т',
-         'u' : 'ю',
+         'u': ['у', 'ю'],
          'v' : 'в',
          'w' : 'в',
          'x' : 'екс',
@@ -87,7 +87,7 @@ function transliterate(text) {
          'R' : 'Р',
          'S' : 'С',
          'T' : 'Т',
-         'U' : 'Ю',
+         'U': ['У', 'Ю'],
          'V' : 'В',
          'W' : 'В',
          'X' : 'ЕКС',
@@ -99,11 +99,20 @@ function transliterate(text) {
     .replace(/Ия\b/g, "Ia")
     .replace(/иЯ\b/g, "iA")
     .replace(/ИЯ\b/g, "IA");
+    const transliteratedText = text.split('').map(letter => {
+        if (transliterationMap[letter]) {
+            if (Array.isArray(transliterationMap[letter])) {
+                return transliterationMap[letter].join('/');
+            } else {
+                return transliterationMap[letter];
+            }
+        } else {
+            return letter;
+        }
+    }).join('');
 
-
-return text.split('').map(letter => transliterationMap[letter] || letter).join('');
-
-
+ 
+    return transliteratedText.replace(/\//g, ' / ');
 }
 
 // Event listeners
@@ -166,14 +175,14 @@ const reduceNumber = (number) => {
 };
 
 const displayResults = () => {
-    const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
     result.innerHTML = "";
     bgFilterContainer.style.display = "block";
     allResults.forEach(({ word, destinyNumber }) => {
-        const transliteratedWord = transliterate(word);
-        const transliteratedNumber = calculateNumerology(transliteratedWord);
+    
+        if (/^[a-zA-Z]+$/.test(word)) {
+            const transliteratedWord = transliterate(word);
+            const transliteratedNumber = calculateNumerology(transliteratedWord);
 
-        if (!filterVal || destinyNumber === filterVal || transliteratedNumber === filterVal) {
             const row = document.createElement("div");
             row.classList.add('resultRow');
 
@@ -190,8 +199,8 @@ const displayResults = () => {
             result.appendChild(row);
         }
     });
-
 };
+
 // 
 function displayBgFilteredResults(bgNumber) {
     const filteredResults = allResults.filter(({ word }) => {
@@ -210,12 +219,52 @@ function displayBgFilteredResults(bgNumber) {
         row.classList.add("resultRow");
         const originalElement = document.createElement("div");
         originalElement.classList.add("numerologyResult");
-        originalElement.innerText = `Оригинал: ${word} - ${destinyNumber}`;
+        originalElement.innerText = `${word} - ${destinyNumber}`;
         const transliteratedElement = document.createElement("div");
         transliteratedElement.classList.add("numerologyResult");
-        transliteratedElement.innerText = `Транслитерация: ${transliteratedWord} - ${transliteratedNumber}`;
+        transliteratedElement.innerText = `${transliteratedWord} - ${transliteratedNumber}`;
         row.appendChild(originalElement);
         row.appendChild(transliteratedElement);
         result.appendChild(row);
     });
 }
+
+const displayEnglishResults = () => {
+    const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
+    result.innerHTML = "";
+    bgFilterContainer.style.display = "block";
+    allResults.forEach(({ word, destinyNumber }) => {
+     
+        if (/^[a-zA-Z]+$/.test(word)) {
+            const transliteratedWord = transliterate(word);
+            const transliteratedNumber = calculateNumerology(transliteratedWord);
+
+            if (!filterVal || destinyNumber === filterVal) {
+                const row = document.createElement("div");
+                row.classList.add('resultRow');
+
+                const originalElement = document.createElement("div");
+                originalElement.classList.add('numerologyResult');
+                originalElement.innerText = `${word} - ${destinyNumber}`;
+                row.appendChild(originalElement);
+
+              
+                if (transliteratedNumber === filterVal) {
+                    const transliteratedElement = document.createElement("div");
+                    transliteratedElement.classList.add('numerologyResult');
+                    transliteratedElement.innerText = `${transliteratedWord} - ${transliteratedNumber}`;
+                    // row.appendChild(transliteratedElement);
+                }
+
+                result.appendChild(row);
+            }
+        }
+    });
+};
+
+
+// Event listener за филтър за английски думи
+buttonFilter.onclick = (e) => {
+    e.preventDefault();
+    displayEnglishResults();
+};
