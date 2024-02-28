@@ -160,16 +160,20 @@ input {
     margin: 1em 0.25em;
     border-radius: 0.85em;
 }
-.window__modal__area {
-    color: white;
+.desc {
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
+    z-index: 111;
 
    
 }
-.window__modal__area p {
+.desc p {
+    color: white;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 20px;
+    font-size: 18px;
+    text-align: left;
     font-weight: bold;
     padding: 0;
     margin: 0;
@@ -180,6 +184,9 @@ input {
     color: red;
 }
 
+#modal > div > div.desc > p:nth-child(6){
+    margin-top: 60px;
+}
 .numbers {
     display: flex;
     justify-content: center;
