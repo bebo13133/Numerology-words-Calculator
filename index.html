@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Name Numerology Calculator</title>
 </head>
+
 <body>
 
     <div class="window">
@@ -14,25 +16,30 @@
         <h2>Find out your power number</h2>
         <p>The practices and principles of numerology have been traced back to at least 500 BC...</p>
 
-        <form method="get">     
+        <form method="get">
             <div id="error"></div>
-            <input id="name" class="window__name" type="text" placeholder="Your name" required/>
+            <input id="name" class="window__name" type="text" placeholder="Your name" required />
             <button id="calculate" type="submit" class="window__button">Calculate</button>
         </form>
 
         <div class="window__modal__background" id="modal">
+        
             <div class="window__modal__area">
+                <p>1 2 3 4 5 6 7 8 9</p>
+                <p> -----------------------------------</p>
+                <p> A B C D E F G H I</p>
+                <p> J (K) L M N O P Q R</p>
+                <p> S T U (V) W X Y Z</p>
+    
+                <p> K = 11</p>
+                <p>V = 22</p>
                 <div id="filter-container">
                     <div class="filterEn">
-                    <input type="number" id="filterNumber" 
-                    placeholder="Enter number"
-                    >
-                    <button id="applyFilter">Apply Filter</button>
-                </div>
+                        <input type="number" id="filterNumber" placeholder="Enter number">
+                        <button id="applyFilter">Apply Filter</button>
+                    </div>
                     <div id="bgFilterContainer" style="display:none;">
-                        <input type="number" id="bgFilterNumber" 
-                        placeholder="Enter number"
-                        >
+                        <input type="number" id="bgFilterNumber" placeholder="Enter number">
                         <button id="applyBgFilter">Филтрирай BG думи</button>
                     </div>
                 </div>
@@ -40,16 +47,17 @@
                 <div id="result"></div>
                 <button id="clean" type="reset" class="window__button__clean">Clean</button>
             </div>
-           
+
         </div>
 
-       
+
 
     </div>
     <footer>
         <div class="credits">&copy;All rights reserved.</div>
     </footer>
-    
+
     <script src="js/app.js"></script>
 </body>
+
 </html>
