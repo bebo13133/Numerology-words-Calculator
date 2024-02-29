@@ -12,15 +12,19 @@
     <body>
 
         <div class="window">
-            <h1>Name Numerology Calculator</h1>
-            <h2>Find out your power number</h2>
-            <p>The practices and principles of numerology have been traced back to at least 500 BC...</p>
+            <div class="window__header">
 
-            <form method="get">
-                <div id="error"></div>
-                <input id="name" class="window__name" type="text" placeholder="Your name" required />
-                <button id="calculate" type="submit" class="window__button">Calculate</button>
-            </form>
+
+                <h1>Name Numerology Calculator</h1>
+                <h2>Find out your power number</h2>
+                <p>The practices and principles of numerology have been traced back to at least 500 BC...</p>
+
+                <form method="get">
+                    <div id="error"></div>
+                    <input id="name" class="window__name" type="text" placeholder="Your name" required />
+                    <button id="calculate" type="submit" class="window__button">Calculate</button>
+                </form>
+            </div>
 
             <div class="window__modal__background" id="modal">
 
@@ -44,7 +48,7 @@
                             <input type="text" id="insertLetter" placeholder="Enter letter" maxlength="1">
                             <button id="generateWords">Generate Words</button>
                         </div>
-                        <div id="bgFilterContainer" style="display:none;">
+                        <div id="bgFilterContainer" style="display:none">
                             <input type="number" id="bgFilterNumber" placeholder="Enter number">
                             <button id="applyBgFilter">Филтрирай BG думи</button>
                         </div>

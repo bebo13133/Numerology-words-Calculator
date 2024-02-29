@@ -1,5 +1,7 @@
 // Global variables
 const buttonCalculate = document.getElementById("calculate");
+const displayHeader = document.querySelector('.window__header');
+const displayWindow = document.querySelector('.window');
 const buttonClean = document.getElementById("clean");
 const buttonFilter = document.getElementById("applyFilter");
 const filterNumberInput = document.getElementById("filterNumber");
@@ -19,7 +21,7 @@ const generateWordsButton = document.getElementById("generateWords");
 
 
 
-applyBgFilterButton.addEventListener("click", function() {
+applyBgFilterButton.addEventListener("click", function () {
     const bgNumber = parseInt(bgFilterNumberInput.value, 10);
     displayBgFilteredResults(bgNumber);
 });
@@ -30,86 +32,86 @@ let allResults = [];
 
 // Convert letters to numbers
 const lettersToNumbers = {
-    а: 1, й: 1,  т: 1,  ь: 1,  a: 1, á: 1, ã: 1, â: 1, j: 1, s: 1,
-    б: 2, к: 11, у: 2,  ю: 11,  b: 2,  k: 11, t: 2,
-    в: 3, л: 3,  ф: 3,  я: 3,  c: 3,  l: 3, u: 3, ú: 3,
-    г: 4, м: 4,  х: 22, d: 4,  m: 4, v: 22,
-    д: 5, н: 5,  ц: 5,  e: 5,  é: 5, ê: 5, n: 5, ñ: 5, w: 5,
-    е: 6, о: 6,  ч: 6,  f: 6,  o: 6, ó: 6, ô: 6, x: 6,
-    ж: 7, п: 7,  ш: 7,  g: 7,  p: 7, y: 7,
-    з: 8, р: 8,  щ: 8,  h: 8,  q: 8, z: 8,
-    и: 9, с: 9,  ъ: 9,  i: 9,  í: 9, r: 9
+    а: 1, й: 1, т: 1, ь: 1, a: 1, á: 1, ã: 1, â: 1, j: 1, s: 1,
+    б: 2, к: 11, у: 2, ю: 11, b: 2, k: 11, t: 2,
+    в: 3, л: 3, ф: 3, я: 3, c: 3, l: 3, u: 3, ú: 3,
+    г: 4, м: 4, х: 22, d: 4, m: 4, v: 22,
+    д: 5, н: 5, ц: 5, e: 5, é: 5, ê: 5, n: 5, ñ: 5, w: 5,
+    е: 6, о: 6, ч: 6, f: 6, o: 6, ó: 6, ô: 6, x: 6,
+    ж: 7, п: 7, ш: 7, g: 7, p: 7, y: 7,
+    з: 8, р: 8, щ: 8, h: 8, q: 8, z: 8,
+    и: 9, с: 9, ъ: 9, i: 9, í: 9, r: 9
 
 };
 
 // Function for transliteration
 function transliterate(text) {
     const transliterationMap = {
-         // lower case
-         'a' : 'а',
-         'b' : 'б',
-         'c' : 'к',
-         'd' : 'д',
-         'e' : 'е',
-         'f' : 'ф',
-         'g' : 'г',
-         'h' : 'х',
-         'i' : 'и',
-         'j' : 'дж',
-         'k' : 'к',
-         'l' : 'л',
-         'm' : 'м',
-         'n' : 'н',
-         'o' : 'о',
-         'p' : 'п',
-         'q' : 'к',
-         'r' : 'р',
-         's' : 'с',
-         't' : 'т',
-         'u': ['у', 'ю'],
-         'v' : 'в',
-         'w' : 'в',
-         'x' : 'екс',
-         'y' : 'и',
-         'z' : 'з',
- 
-         // upper case
-         'A' : 'А',
-         'B' : 'Б',
-         'C' : 'К',
-         'D' : 'Д',
-         'E' : 'Е',
-         'F' : 'Ф',
-         'G' : 'Г',
-         'H' : 'Х',
-         'I' : 'И',
-         'J' : 'ДЖ',
-         'K' : 'К',
-         'L' : 'Л',
-         'M' : 'М',
-         'N' : 'Н',
-         'O' : 'О',
-         'P' : 'П',
-         'Q' : 'К',
-         'R' : 'Р',
-         'S' : 'С',
-         'T' : 'Т',
-         'U': ['У', 'Ю'],
-         'V' : 'В',
-         'W' : 'В',
-         'X' : 'ЕКС',
-         'Y' : 'И',
-         'Z' : 'З',
+        // lower case
+        'a': 'а',
+        'b': 'б',
+        'c': 'к',
+        'd': 'д',
+        'e': 'е',
+        'f': 'ф',
+        'g': 'г',
+        'h': 'х',
+        'i': 'и',
+        'j': 'дж',
+        'k': 'к',
+        'l': 'л',
+        'm': 'м',
+        'n': 'н',
+        'o': 'о',
+        'p': 'п',
+        'q': 'к',
+        'r': 'р',
+        's': 'с',
+        't': 'т',
+        'u': ['у', 'ю'],
+        'v': 'в',
+        'w': 'в',
+        'x': 'екс',
+        'y': 'и',
+        'z': 'з',
+
+        // upper case
+        'A': 'А',
+        'B': 'Б',
+        'C': 'К',
+        'D': 'Д',
+        'E': 'Е',
+        'F': 'Ф',
+        'G': 'Г',
+        'H': 'Х',
+        'I': 'И',
+        'J': 'ДЖ',
+        'K': 'К',
+        'L': 'Л',
+        'M': 'М',
+        'N': 'Н',
+        'O': 'О',
+        'P': 'П',
+        'Q': 'К',
+        'R': 'Р',
+        'S': 'С',
+        'T': 'Т',
+        'U': ['У', 'Ю'],
+        'V': 'В',
+        'W': 'В',
+        'X': 'ЕКС',
+        'Y': 'И',
+        'Z': 'З',
     };
     text = text.replace(/TS/g, "Ц")
-    .replace(/ts/g, "ц")
-    .replace(/Ts/g, "Ц").replace(/tS/g, "ц")
+        .replace(/ts/g, "ц")
+        .replace(/Ts/g, "Ц").replace(/tS/g, "ц")
     text = text.replace(/ия\b/g, "ia")
-    .replace(/Ия\b/g, "Ia")
-    .replace(/иЯ\b/g, "iA")
-    .replace(/ИЯ\b/g, "IA")
- 
-  
+        .replace(/Ия\b/g, "Ia")
+        .replace(/иЯ\b/g, "iA")
+        .replace(/ИЯ\b/g, "IA")
+
+
     const transliteratedText = text.split('').map(letter => {
         if (transliterationMap[letter]) {
             if (Array.isArray(transliterationMap[letter])) {
@@ -122,7 +124,7 @@ function transliterate(text) {
         }
     }).join('');
 
- 
+
     return transliteratedText.replace(/\//g, ' / ');
 }
 
@@ -132,17 +134,24 @@ buttonCalculate.onclick = (e) => {
     separateWords();
     modal.style.display = "block";
     modal.style.opacity = "1";
+
+    displayHeader.classList.add('hidden');
+    displayWindow.classList.add('hidden-window');
+
 };
 
 buttonClean.onclick = (e) => {
     e.preventDefault();
     cleanAll();
+    displayHeader.classList.remove('hidden');
+    displayWindow.classList.remove('hidden-window');
+
 };
 
 buttonFilter.onclick = (e) => {
     e.preventDefault();
     displayResults();
-    
+
 };
 
 const cleanAll = () => {
@@ -189,7 +198,7 @@ const displayResults = () => {
     result.innerHTML = "";
     bgFilterContainer.style.display = "block";
     allResults.forEach(({ word, destinyNumber }) => {
-    
+
         if (/^[a-zA-Z]+$/.test(word)) {
             const transliteratedWord = transliterate(word);
             const transliteratedNumber = calculateNumerology(transliteratedWord);
@@ -219,10 +228,10 @@ function displayBgFilteredResults(bgNumber) {
         const transliteratedNumber = calculateNumerology(transliteratedWord);
         return transliteratedNumber === bgNumber;
     });
-    result.innerHTML = ""; 
-    bgFilterContainer.style.display = "none"; 
+    result.innerHTML = "";
+    bgFilterContainer.style.display = "none";
 
- 
+
     filteredResults.forEach(({ word, destinyNumber }) => {
         const transliteratedWord = transliterate(word);
         const transliteratedNumber = calculateNumerology(transliteratedWord);
@@ -246,14 +255,14 @@ const displayEnglishResults = () => {
     const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
     result.innerHTML = "";
     bgFilterContainer.style.display = "block";
-    filteredWords = []; 
+    filteredWords = [];
     allResults.forEach(({ word, destinyNumber }) => {
         if (/^[a-zA-Z]+$/.test(word)) {
             const transliteratedWord = transliterate(word);
             const transliteratedNumber = calculateNumerology(transliteratedWord);
 
             if (!filterVal || destinyNumber === filterVal) {
-                filteredWords.push(word); 
+                filteredWords.push(word);
 
                 const row = document.createElement("div");
                 row.classList.add('resultRow');
@@ -282,10 +291,10 @@ buttonFilter.onclick = (e) => {
     e.preventDefault();
     displayEnglishResults();
 };
-generateWordsButton.addEventListener("click", function(e) {
+generateWordsButton.addEventListener("click", function (e) {
     e.preventDefault();
     const letter = insertLetterInput.value.toUpperCase();
-    if(letter.length === 1 && /^[A-Z]$/.test(letter)) { // Проверка дали е въведена една буква от A до Z
+    if (letter.length === 1 && /^[A-Z]$/.test(letter)) { // Проверка дали е въведена една буква от A до Z
         generateNewWords(letter);
     } else {
         alert("Please enter a single letter from A to Z.");
@@ -295,15 +304,15 @@ function generateNewWords(insertedLetter) {
     copyBtn.style.display = "block";
     const newWordsSets = filteredWords.map(baseWord => {
         const newWords = [];
-        for(let i = 0; i <= baseWord.length; i++) {
+        for (let i = 0; i <= baseWord.length; i++) {
             const newWord = [baseWord.slice(0, i), insertedLetter, baseWord.slice(i)].join('');
             newWords.push(newWord);
         }
         return newWords;
     });
 
-    console.log(newWordsSets); 
-    displayNewWords(newWordsSets); 
+    console.log(newWordsSets);
+    displayNewWords(newWordsSets);
 }
 
 function displayNewWords(wordsGroups) {
@@ -319,11 +328,11 @@ function displayNewWords(wordsGroups) {
 
         result.appendChild(groupContainer);
 
-    
+
         if (groupIndex < wordsGroups.length - 1) {
             const separator = document.createElement("div");
-            separator.style.padding = "10px 0"; 
-            separator.textContent = "------------"; 
+            separator.style.padding = "10px 0";
+            separator.textContent = "------------";
         }
     });
 }
@@ -340,10 +349,10 @@ function copyGeneratedWordsToClipboard() {
     tempTextArea.select();
     document.execCommand("copy");
 
- 
+
     document.body.removeChild(tempTextArea);
 
-   
+
     alert("Generated words copied to clipboard!");
 }
 
