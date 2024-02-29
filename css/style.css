@@ -214,7 +214,7 @@ input {
   font-family: 'Josefin Sans', sans-serif;
   border-radius: 1em;
   margin: 0.5em 0.5em;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
 }
 
 .window__name {
