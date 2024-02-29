@@ -11,6 +11,7 @@ const errorDiv = document.getElementById("error");
 const bgFilterContainer = document.getElementById("bgFilterContainer");
 const bgFilterNumberInput = document.getElementById("bgFilterNumber");
 const applyBgFilterButton = document.getElementById("applyBgFilter");
+const copyBtn = document.getElementById("copyButton");
 
 
 const insertLetterInput = document.getElementById("insertLetter");
@@ -286,8 +287,8 @@ generateWordsButton.addEventListener("click", function(e) {
         alert("Please enter a single letter from A to Z.");
     }
 });
-
 function generateNewWords(insertedLetter) {
+    copyBtn.style.display = "block";
     const newWordsSets = filteredWords.map(baseWord => {
         const newWords = [];
         for(let i = 0; i <= baseWord.length; i++) {
@@ -297,17 +298,50 @@ function generateNewWords(insertedLetter) {
         return newWords;
     });
 
-    displayNewWords(newWordsSets.flat()); // Плоско сливане на масивите и показване
+    console.log(newWordsSets); 
+    displayNewWords(newWordsSets); 
 }
 
-function displayNewWords(words) {
-    const container = document.createElement("div");
-    words.forEach(word => {
-        const wordElement = document.createElement("h5");
-        wordElement.textContent = word;
-        container.appendChild(wordElement);
-    });
-    
+function displayNewWords(wordsGroups) {
     result.innerHTML = ""; // Изчистване на предишни резултати
-    result.appendChild(container);
+
+    wordsGroups.forEach((group, groupIndex) => {
+        const groupContainer = document.createElement("div");
+        group.forEach(word => {
+            const wordElement = document.createElement("h5");
+            wordElement.textContent = word;
+            groupContainer.appendChild(wordElement);
+        });
+
+        result.appendChild(groupContainer);
+
+    
+        if (groupIndex < wordsGroups.length - 1) {
+            const separator = document.createElement("div");
+            separator.style.padding = "10px 0"; 
+            separator.textContent = "------------"; 
+        }
+    });
 }
+function copyGeneratedWordsToClipboard() {
+
+    const tempTextArea = document.createElement("textarea");
+    document.body.appendChild(tempTextArea);
+
+
+    const words = Array.from(document.querySelectorAll("#result h5")).map(el => el.textContent).join("\n");
+    tempTextArea.value = words;
+
+
+    tempTextArea.select();
+    document.execCommand("copy");
+
+ 
+    document.body.removeChild(tempTextArea);
+
+   
+    alert("Generated words copied to clipboard!");
+}
+
+const copyButton = document.getElementById("copyButton");
+copyButton.addEventListener("click", copyGeneratedWordsToClipboard);

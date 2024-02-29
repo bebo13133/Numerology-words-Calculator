@@ -387,3 +387,15 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 h5{
     padding-right: 30px;
 }
+
+#copyButton{
+    padding: 1.6em 6em;
+    color: white;
+    font-family: 'Josefin Sans';
+    background: #4f35c2;
+    box-shadow: none;
+    cursor: pointer;
+    border: none;
+    margin: 1em 0.25em;
+    border-radius: 0.85em;
+}
