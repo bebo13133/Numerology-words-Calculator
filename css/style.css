@@ -356,3 +356,34 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     flex: 1;
     text-align: center; /* Центриране на текста */
 }
+#letterInputContainer{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5em;
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    text-align: left;
+    padding: 1em 0;
+    border-bottom: 3px solid #4e33b7;
+    margin: 1em;
+    font-size: 16px;
+}
+#insertLetter{
+    font-size: 12px;
+    border-radius: 2em;
+    padding: 0.7em;
+    overflow: hidden;
+}
+#generateWords{
+    font-size: 12px;
+    border-radius: 2em;
+    padding: 0.5em;
+    overflow: hidden;
+}
+#generateWords:hover{
+    background-color: chocolate;
+    color: white;
+}
+h5{
+    padding-right: 30px;
+}

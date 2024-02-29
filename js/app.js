@@ -12,6 +12,12 @@ const bgFilterContainer = document.getElementById("bgFilterContainer");
 const bgFilterNumberInput = document.getElementById("bgFilterNumber");
 const applyBgFilterButton = document.getElementById("applyBgFilter");
 
+
+const insertLetterInput = document.getElementById("insertLetter");
+const generateWordsButton = document.getElementById("generateWords");
+
+
+
 applyBgFilterButton.addEventListener("click", function() {
     const bgNumber = parseInt(bgFilterNumberInput.value, 10);
     displayBgFilteredResults(bgNumber);
@@ -229,17 +235,21 @@ function displayBgFilteredResults(bgNumber) {
     });
 }
 
+let filteredWords = []; // Глобална променлива за съхранение на филтрирани думи
+
 const displayEnglishResults = () => {
     const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
     result.innerHTML = "";
     bgFilterContainer.style.display = "block";
+    filteredWords = []; 
     allResults.forEach(({ word, destinyNumber }) => {
-     
         if (/^[a-zA-Z]+$/.test(word)) {
             const transliteratedWord = transliterate(word);
             const transliteratedNumber = calculateNumerology(transliteratedWord);
 
             if (!filterVal || destinyNumber === filterVal) {
+                filteredWords.push(word); 
+
                 const row = document.createElement("div");
                 row.classList.add('resultRow');
 
@@ -248,12 +258,11 @@ const displayEnglishResults = () => {
                 originalElement.innerText = `${word} - ${destinyNumber}`;
                 row.appendChild(originalElement);
 
-              
                 if (transliteratedNumber === filterVal) {
                     const transliteratedElement = document.createElement("div");
                     transliteratedElement.classList.add('numerologyResult');
                     transliteratedElement.innerText = `${transliteratedWord} - ${transliteratedNumber}`;
-                    // row.appendChild(transliteratedElement);
+                    // row.appendChild(transliteratedElement); // Ако искате да покажете и транслитерираните резултати
                 }
 
                 result.appendChild(row);
@@ -268,3 +277,37 @@ buttonFilter.onclick = (e) => {
     e.preventDefault();
     displayEnglishResults();
 };
+generateWordsButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    const letter = insertLetterInput.value.toUpperCase();
+    if(letter.length === 1 && /^[A-Z]$/.test(letter)) { // Проверка дали е въведена една буква от A до Z
+        generateNewWords(letter);
+    } else {
+        alert("Please enter a single letter from A to Z.");
+    }
+});
+
+function generateNewWords(insertedLetter) {
+    const newWordsSets = filteredWords.map(baseWord => {
+        const newWords = [];
+        for(let i = 0; i <= baseWord.length; i++) {
+            const newWord = [baseWord.slice(0, i), insertedLetter, baseWord.slice(i)].join('');
+            newWords.push(newWord);
+        }
+        return newWords;
+    });
+
+    displayNewWords(newWordsSets.flat()); // Плоско сливане на масивите и показване
+}
+
+function displayNewWords(words) {
+    const container = document.createElement("div");
+    words.forEach(word => {
+        const wordElement = document.createElement("h5");
+        wordElement.textContent = word;
+        container.appendChild(wordElement);
+    });
+    
+    result.innerHTML = ""; // Изчистване на предишни резултати
+    result.appendChild(container);
+}
