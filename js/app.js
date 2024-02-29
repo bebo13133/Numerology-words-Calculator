@@ -187,7 +187,7 @@ const reduceNumber = (number) => {
 
 const displayResults = () => {
     result.innerHTML = "";
-    bgFilterContainer.style.display = "block";
+    // bgFilterContainer.style.display = "block";
     allResults.forEach(({ word, destinyNumber }) => {
     
         if (/^[a-zA-Z]+$/.test(word)) {
@@ -220,7 +220,7 @@ function displayBgFilteredResults(bgNumber) {
         return transliteratedNumber === bgNumber;
     });
     result.innerHTML = ""; 
-    bgFilterContainer.style.display = "none"; 
+    // bgFilterContainer.style.display = "none"; 
 
  
     filteredResults.forEach(({ word, destinyNumber }) => {
@@ -245,7 +245,7 @@ let filteredWords = []; // Глобална променлива за съхра
 const displayEnglishResults = () => {
     const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
     result.innerHTML = "";
-    bgFilterContainer.style.display = "block";
+    // bgFilterContainer.style.display = "block";
     filteredWords = []; 
     allResults.forEach(({ word, destinyNumber }) => {
         if (/^[a-zA-Z]+$/.test(word)) {
