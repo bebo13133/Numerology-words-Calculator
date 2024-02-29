@@ -101,11 +101,15 @@ function transliterate(text) {
          'Y' : 'И',
          'Z' : 'З',
     };
-
+    text = text.replace(/TS/g, "Ц")
+    .replace(/ts/g, "ц")
+    .replace(/Ts/g, "Ц").replace(/tS/g, "ц")
     text = text.replace(/ия\b/g, "ia")
     .replace(/Ия\b/g, "Ia")
     .replace(/иЯ\b/g, "iA")
-    .replace(/ИЯ\b/g, "IA");
+    .replace(/ИЯ\b/g, "IA")
+ 
+  
     const transliteratedText = text.split('').map(letter => {
         if (transliterationMap[letter]) {
             if (Array.isArray(transliterationMap[letter])) {
