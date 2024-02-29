@@ -211,10 +211,10 @@ input {
   background: #05011b;
   color: white;
   border: 2px solid #48399b;
-  font-family: 'Josefin Sans';
+  font-family: 'Josefin Sans', sans-serif;
   border-radius: 1em;
   margin: 0.5em 0.5em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .window__name {
@@ -379,13 +379,15 @@ footer {
 }
 #filter-container {
   display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 #result {
   display: flex;
   flex-direction: column;
   font-size: 1.5em;
   width: 100%;
-  font-family: 'Josefin Sans';
+  font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
   text-align: left;
   padding: 1em 0;
@@ -394,34 +396,44 @@ footer {
 }
 .filterEn {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  /* font-size: 1.5em; */
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 1em 0;
+  /* border-bottom: 3px solid #4e33b7; */
+  margin: 1em;
+  /* font-size: 16px; */
 }
 #bgFilterContainer {
   display: flex;
   flex-direction: column;
-  font-size: 1.5em;
-  font-family: 'Josefin Sans';
+  justify-content: center;
+  /* font-size: 1.5em; */
+  font-family: 'Josefin Sans', sans-serif;
   text-transform: uppercase;
   text-align: left;
   padding: 1em 0;
-  border-bottom: 3px solid #4e33b7;
+  /* border-bottom: 3px solid #4e33b7; */
   margin: 1em;
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 #filterNumber {
   height: 2em;
   width: 150px;
-  font-size: 15px;
+  /* font-size: 15px; */
 }
 #bgFilterNumber {
-  font-size: 12px;
+  /* font-size: 12px; */
   border-radius: 2em;
   padding: 0.7em;
   overflow: hidden;
 }
 
 #applyBgFilter {
-  font-size: 12px;
+  /* font-size: 12px; */
   border-radius: 2em;
   padding: 0.5em;
   overflow: hidden;
@@ -431,7 +443,7 @@ footer {
   color: white;
 }
 #applyFilter {
-  font-size: 12px;
+  /* font-size: 12px; */
   border-radius: 2em;
   padding: 0.5em;
   overflow: hidden;
@@ -454,23 +466,24 @@ footer {
 #letterInputContainer {
   display: flex;
   flex-direction: column;
-  font-size: 1.5em;
+  justify-content: center;
+  /* font-size: 1.5em; */
   font-family: 'Josefin Sans';
   text-transform: uppercase;
   text-align: left;
   padding: 1em 0;
-  border-bottom: 3px solid #4e33b7;
+  /* border-bottom: 3px solid #4e33b7; */
   margin: 1em;
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 #insertLetter {
-  font-size: 12px;
+  /* font-size: 12px; */
   border-radius: 2em;
   padding: 0.7em;
   overflow: hidden;
 }
 #generateWords {
-  font-size: 12px;
+  /* font-size: 12px; */
   border-radius: 2em;
   padding: 0.5em;
   overflow: hidden;
@@ -506,4 +519,33 @@ h5 {
   background: none;
 
   box-shadow: none;
+}
+
+.credits {
+  font-family: inherit;
+  font-size: 1.5em;
+}
+
+.credits span {
+  display: inline-block;
+  font-size: 2em;
+  margin-right: 10em;
+  transition: all 0.3s;
+}
+
+.credits > span:hover {
+  transform: scale(1.2);
+}
+
+.btn {
+  padding: 1.6em 6em;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  background: #4f35c2;
+  box-shadow: none;
+  cursor: pointer;
+  border: none;
+  margin: 1em 0.25em;
+  border-radius: 0.85em;
 }

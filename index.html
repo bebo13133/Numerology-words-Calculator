@@ -42,19 +42,20 @@
                     <div id="filter-container">
                         <div class="filterEn">
                             <input type="number" id="filterNumber" placeholder="Enter number">
-                            <button id="applyFilter">Apply Filter</button>
+                            <button id="applyFilter" class="btn">Apply Filter</button>
                         </div>
                         <div id="letterInputContainer">
                             <input type="text" id="insertLetter" placeholder="Enter letter" maxlength="1">
-                            <button id="generateWords">Generate Words</button>
+                            <button id="generateWords" class="btn">Generate Words</button>
                         </div>
-                        <div id="bgFilterContainer" style="display:none">
+                        <!-- <div id="bgFilterContainer" style="display:none"> -->
+                        <div id="bgFilterContainer">
                             <input type="number" id="bgFilterNumber" placeholder="Enter number">
-                            <button id="applyBgFilter">Филтрирай BG думи</button>
+                            <button id="applyBgFilter" class="btn">Филтрирай BG думи</button>
                         </div>
                     </div>
                     <h2>Your power numbers are</h2>
-                    <div id="result"></div>
+                    <div id="result">&nbsp;</div>
                     <button id="clean" type="reset" class="window__button__clean">Clean</button>
                     <button id="copyButton" style="display:none;">Copy</button>
 
@@ -66,7 +67,7 @@
 
         </div>
         <footer>
-            <div class="credits">&copy;All rights reserved.</div>
+            <div class="credits"><span>BeboDesigns</span>&copy;All rights reserved.</div>
         </footer>
 
         <script src="js/app.js"></script>
