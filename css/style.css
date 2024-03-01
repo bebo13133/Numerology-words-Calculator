@@ -134,13 +134,13 @@ body {
   background-size: cover;
   background-position: bottom;
   height: 100vh;
-
+  overflow: hidden;
   font-family: 'Montserrat', sans-serif;
 }
 
 .window {
   max-width: 60vw;
-  height: 60vh;
+  height: 100vh;
   background: rgb(26 4 134 / 20%);
   color: white;
   border-radius: 1em;
