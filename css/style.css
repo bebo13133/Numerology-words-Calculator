@@ -133,7 +133,7 @@ body {
   background-image: url('../public/background.webp');
   background-size: cover;
   background-position: bottom;
-  height: 100vh;
+  height: 100vh;  
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
 }
