@@ -48,85 +48,45 @@ const lettersToNumbers = {
 function transliterate(text) {
     const transliterationMap = {
         // lower case
-        'a': 'а',
-        'b': 'б',
-        'c': 'к',
-        'd': 'д',
-        'e': 'е',
-        'f': 'ф',
-        'g': 'г',
-        'h': 'х',
-        'i': 'и',
-        'j': 'дж',
-        'k': 'к',
-        'l': 'л',
-        'm': 'м',
-        'n': 'н',
-        'o': 'о',
-        'p': 'п',
-        'q': 'к',
-        'r': 'р',
-        's': 'с',
-        't': 'т',
-        'u': ['у', 'ю'],
-        'v': 'в',
-        'w': 'в',
-        'x': 'екс',
-        'y': 'и',
+        'a': 'а', 'b': 'б', 'c': 'к', 'd': 'д', 'e': 'е', 'f': 'ф',
+        'g': 'г', 'h': 'х', 'i': 'и', 'j': 'дж', 'k': 'к', 'l': 'л',
+        'm': 'м', 'n': 'н', 'o': 'о', 'p': 'п', 'q': 'к', 'r': 'р',
+        's': 'с', 't': 'т', 'v': 'в', 'w': 'в', 'x': 'екс', 'y': 'и',
         'z': 'з',
-
         // upper case
-        'A': 'А',
-        'B': 'Б',
-        'C': 'К',
-        'D': 'Д',
-        'E': 'Е',
-        'F': 'Ф',
-        'G': 'Г',
-        'H': 'Х',
-        'I': 'И',
-        'J': 'ДЖ',
-        'K': 'К',
-        'L': 'Л',
-        'M': 'М',
-        'N': 'Н',
-        'O': 'О',
-        'P': 'П',
-        'Q': 'К',
-        'R': 'Р',
-        'S': 'С',
-        'T': 'Т',
-        'U': ['У', 'Ю'],
-        'V': 'В',
-        'W': 'В',
-        'X': 'ЕКС',
-        'Y': 'И',
+        'A': 'А', 'B': 'Б', 'C': 'К', 'D': 'Д', 'E': 'Е', 'F': 'Ф',
+        'G': 'Г', 'H': 'Х', 'I': 'И', 'J': 'ДЖ', 'K': 'К', 'L': 'Л',
+        'M': 'М', 'N': 'Н', 'O': 'О', 'P': 'П', 'Q': 'К', 'R': 'Р',
+        'S': 'С', 'T': 'Т', 'V': 'В', 'W': 'В', 'X': 'ЕКС', 'Y': 'И',
         'Z': 'З',
+        // Special cases
+        'u': ['у', 'ю'], // Обработка на "u"
     };
-    text = text.replace(/TS/g, "Ц")
-        .replace(/ts/g, "ц")
-        .replace(/Ts/g, "Ц").replace(/tS/g, "ц")
-    text = text.replace(/ия\b/g, "ia")
-        .replace(/Ия\b/g, "Ia")
-        .replace(/иЯ\b/g, "iA")
-        .replace(/ИЯ\b/g, "IA")
 
+  
+    if (text.includes('u') || text.includes('U')) {
+        let variations = ['у', 'ю'];
+        let results = [];
 
-    const transliteratedText = text.split('').map(letter => {
-        if (transliterationMap[letter]) {
-            if (Array.isArray(transliterationMap[letter])) {
-                return transliterationMap[letter].join('/');
-            } else {
-                return transliterationMap[letter];
-            }
-        } else {
-            return letter;
-        }
-    }).join('');
+       
+        variations.forEach(variation => {
+            let variationText = text.replace(/u/gi, variation); // Заменяме всички "u" с текущата вариация
+            let transliteratedText = variationText.split('').map(letter => 
+                transliterationMap[letter.toLowerCase()] ? transliterationMap[letter.toLowerCase()] : letter
+            ).join('');
+            results.push(transliteratedText);
+        });
 
-
-    return transliteratedText.replace(/\//g, ' / ');
+        return results.join('\n'); // Обединяваме всеки вариант с нов ред
+    } else {
+        // Директна транслитерация, ако няма "u"
+        return [text.split('').map(letter => 
+            transliterationMap[letter.toLowerCase()] ? transliterationMap[letter.toLowerCase()] : letter
+        ).join('')].join('\n'); // Добавяме нов ред към резултата
+    }
 }
+
+
 
 // Event listeners
 buttonCalculate.onclick = (e) => {
@@ -183,9 +143,25 @@ const calculateWordNumerology = (word) => {
     let destinyNumber = reduceNumber(sum);
     allResults.push({ word, destinyNumber });
 };
-const calculateNumerology = (word) => {
-    let sum = word.split('').map(letter => lettersToNumbers[letter.toLowerCase()] || 0).reduce((acc, curr) => acc + curr, 0);
-    return reduceNumber(sum);
+const calculateNumerology = (words) => {
+    if (!Array.isArray(words)) {
+        words = [words];
+    }
+
+    // Обхожда всички думи и изчислява техните нумерологични числа
+    return words.map(word => {
+        let sum = word.split('').reduce((acc, char) => {
+            let number = lettersToNumbers[char.toLowerCase()] || 0; // Превръща буквата в число, ако е в мапинга
+            return acc + number;
+        }, 0);
+
+    
+        while (sum > 9) {
+            sum = sum.toString().split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
+        }
+        
+        return sum; 
+    });
 };
 const reduceNumber = (number) => {
     while (number > 9) {
@@ -223,15 +199,17 @@ const displayResults = () => {
 
 // 
 function displayBgFilteredResults(bgNumber) {
+    // Филтрираме всички резултати, чиито нумерологични числа съвпадат с bgNumber
     const filteredResults = allResults.filter(({ word }) => {
-        const transliteratedWord = transliterate(word);
-        const transliteratedNumber = calculateNumerology(transliteratedWord);
-        return transliteratedNumber === bgNumber;
+        const numerologyNumbers = calculateNumerology(transliterate(word));
+        // Проверяваме дали някое от нумерологичните числа съвпада с bgNumber
+        return numerologyNumbers.includes(bgNumber);
     });
+
+    // Изчистваме предишните резултати
     result.innerHTML = "";
-    // bgFilterContainer.style.display = "none";
 
-
+    // Показваме филтрираните резултати
     filteredResults.forEach(({ word, destinyNumber }) => {
         const transliteratedWord = transliterate(word);
         const transliteratedNumber = calculateNumerology(transliteratedWord);
@@ -249,7 +227,7 @@ function displayBgFilteredResults(bgNumber) {
     });
 }
 
-let filteredWords = []; // Глобална променлива за съхранение на филтрирани думи
+let filteredWords = []; 
 
 const displayEnglishResults = () => {
     const filterVal = filterNumberInput.value ? parseInt(filterNumberInput.value, 10) : null;
@@ -294,7 +272,7 @@ buttonFilter.onclick = (e) => {
 generateWordsButton.addEventListener("click", function (e) {
     e.preventDefault();
     const letter = insertLetterInput.value.toUpperCase();
-    if (letter.length === 1 && /^[A-Z]$/.test(letter)) { // Проверка дали е въведена една буква от A до Z
+    if (letter.length === 1 && /^[A-Z]$/.test(letter)) {
         generateNewWords(letter);
     } else {
         alert("Please enter a single letter from A to Z.");
@@ -315,27 +293,41 @@ function generateNewWords(insertedLetter) {
     displayNewWords(newWordsSets);
 }
 
-function displayNewWords(wordsGroups) {
-    result.innerHTML = ""; // Изчистване на предишни резултати
+function generateNewWords(insertedLetter) {
+    // Проверяваме дали буквата е 'U' за да обработим специалния случай
+    let variants = insertedLetter.toUpperCase() === 'U' ? ['У', 'Ю'] : [insertedLetter];
 
-    wordsGroups.forEach((group, groupIndex) => {
-        const groupContainer = document.createElement("div");
-        group.forEach(word => {
-            const wordElement = document.createElement("h5");
-            wordElement.textContent = word;
-            groupContainer.appendChild(wordElement);
+    // Подготовка на контейнер за новите думи
+    let newWordsWithVariants = [];
+
+    filteredWords.forEach(word => {
+        variants.forEach(variant => {
+            // За всяка буква от думата + 1 (за да позволим добавяне в края)
+            for (let i = 0; i <= word.length; i++) {
+                // Създаваме нова дума с вмъкнатата буква
+                let newWord = word.slice(0, i) + variant + word.slice(i);
+                newWordsWithVariants.push(newWord);
+            }
         });
-
-        result.appendChild(groupContainer);
-
-
-        if (groupIndex < wordsGroups.length - 1) {
-            const separator = document.createElement("div");
-            separator.style.padding = "10px 0";
-            separator.textContent = "------------";
-        }
     });
+
+    // Показваме новите думи
+    displayNewWordsWithVariants(newWordsWithVariants);
 }
+
+function displayNewWordsWithVariants(words) {
+    result.innerHTML = ""; // Изчистваме текущите резултати
+
+    // За всяка дума създаваме елемент и го добавяме към DOM
+    words.forEach(word => {
+        let wordElement = document.createElement("h5");
+        wordElement.textContent = word;
+        result.appendChild(wordElement);
+    });
+
+    // Ако е нужно, добавете допълнителна логика за визуализация или обработка
+}
+
 function copyGeneratedWordsToClipboard() {
 
     const tempTextArea = document.createElement("textarea");
